@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "sysknife": {
+      "command": "/home/user/Desktop/lacs/target/release/sysknife",
+      "args": ["mcp-server"],
+      "env": {
+        "SYSKNIFE_SOCKET": "/tmp/sysknife-vm.sock",
+        "SYSKNIFE_LLM_PROVIDER": "openai",
+        "OPENAI_API_KEY": "sk-proj-REDACTED-LEAKED-KEY-REVOKED",
+        "SYSKNIFE_LLM_MODEL": "gpt-4o-2024-11-20"
+      }
+    }
+  }
+}
