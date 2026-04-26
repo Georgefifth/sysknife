@@ -273,6 +273,26 @@ enum DaemonResponse {
         category: String,
         message: String,
     },
+    /// Returned when a mutating action is submitted while a High-risk
+    /// reboot-required action (e.g. `UbuntuReleaseUpgrade`) is already
+    /// executing. The caller should retry after the running job completes.
+    ///
+    /// Wire shape (JSON):
+    /// ```json
+    /// {
+    ///   "type": "conflict_response",
+    ///   "request_id": "<id>",
+    ///   "message": "high-risk action in progress; retry after the current job completes",
+    ///   "retry_after_seconds": null
+    /// }
+    /// ```
+    ConflictResponse {
+        request_id: String,
+        message: String,
+        /// Hint to the client: how long to wait before retrying. `null` when
+        /// the daemon cannot estimate the remaining runtime.
+        retry_after_seconds: Option<u32>,
+    },
 }
 
 /// IPC payload included in `job_completed` and related response frames.
@@ -1353,6 +1373,61 @@ async fn handle_execute(
         .await;
     }
 
+    // ── Concurrency gate (ME4) ─────────────────────────────────────────────
+    //
+    // A High-risk reboot-required action (e.g. `UbuntuReleaseUpgrade`,
+    // `AddLayeredPackage`, `RebaseSystem`) can run for 20-45 minutes and holds
+    // exclusive system-wide locks (dpkg, rpm-ostree). Allowing a second
+    // mutating action to interleave causes lock contention, partial-upgrade
+    // corruption, or worse. Read-only (`Observer`-level) actions are never
+    // mutating and skip this check entirely — they are safe to run concurrently.
+    //
+    // "Mutating" is defined as: the action's minimum required role is Dev or
+    // higher (i.e. `min_role_for_action` returns `Dev` or `Admin`). This reuses
+    // the existing policy table rather than a separate hand-maintained list.
+    //
+    // The slot is held for the duration of the action only when the new action
+    // is itself High-risk + reboot-required; other mutating actions are blocked
+    // while a high-risk action is in-flight but do not themselves set the slot.
+    let is_mutating = state
+        .policy
+        .min_role_for_action(action_name)
+        .map(|r| crate::auth::role_rank(&r) > crate::auth::role_rank(&CallerRole::Observer))
+        .unwrap_or(false);
+
+    let is_high_risk_reboot =
+        spec.risk_level == sysknife_types::RiskLevel::High && spec.reboot_required;
+
+    // Check the gate for any mutating action; only set it for high-risk+reboot.
+    if is_mutating {
+        let mut slot = state.running_high_risk_reboot.lock().await;
+        if let Some(running_hash) = slot.as_ref() {
+            // Another high-risk reboot-required action is already executing.
+            // Return a typed Conflict response so the shell can surface a
+            // "wait, an upgrade is running" message rather than a generic error.
+            let msg = format!(
+                "a High-risk reboot-required action is already executing (request_hash \
+                 {running_hash}); retry after the current job completes"
+            );
+            drop(slot); // release before I/O
+            return send_response(
+                framed,
+                &DaemonResponse::ConflictResponse {
+                    request_id: request_id.to_string(),
+                    message: msg,
+                    retry_after_seconds: None,
+                },
+            )
+            .await;
+        }
+        if is_high_risk_reboot {
+            // Claim the slot before releasing the lock so no other connection
+            // can race between the check and the set.
+            *slot = Some(stored_hash.clone());
+        }
+        // Lock drops here via RAII, releasing for other read-only actions.
+    }
+
     let job_id = Uuid::new_v4().to_string();
 
     send_response(
@@ -1437,6 +1512,15 @@ async fn handle_execute(
         initial_summary,
     )
     .await;
+
+    // Clear the high-risk-reboot slot now that the action has finished
+    // (success OR failure). The slot was only set when this action was
+    // itself High-risk + reboot-required; for other mutating actions the
+    // guard was read but never written, so there is nothing to clear.
+    if is_high_risk_reboot {
+        let mut slot = state.running_high_risk_reboot.lock().await;
+        *slot = None;
+    }
 
     // Update the transaction record. A failure here is an audit-trail loss —
     // log it and surface it as a warning in the job result so the client is

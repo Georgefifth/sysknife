@@ -6,6 +6,7 @@ use crate::transport::listen::{bind_unix_listener, ListenTarget, ListenTargetErr
 use std::os::unix::net::UnixListener;
 use std::path::PathBuf;
 use std::sync::Arc;
+use tokio::sync::Mutex;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct DaemonConfig {
@@ -34,6 +35,27 @@ pub struct DaemonState {
     /// sink is configured; events recorded by the dispatcher are then only
     /// written to the local hash-chained store.
     pub forwarder: Option<AuditForwarder>,
+    /// Coarse concurrency guard for High-risk reboot-required actions (ME4).
+    ///
+    /// Holds the `request_hash` of any currently executing action whose
+    /// `ActionSpec` has `risk_level == High && reboot_required == true` (e.g.
+    /// `UbuntuReleaseUpgrade`, `AddLayeredPackage`, `RebaseSystem`). `None`
+    /// when no such action is in flight.
+    ///
+    /// The dispatcher checks this slot before claiming any mutating action.
+    /// If the slot is occupied the new request is rejected with a
+    /// `ConflictResponse` rather than racing the in-flight upgrade and
+    /// causing dpkg/rpm-ostree lock contention.
+    ///
+    /// The slot is `Arc<Mutex<…>>` so cloned `DaemonState` values — one per
+    /// IPC connection — all share the same underlying guard. `Mutex::lock`
+    /// is held for at most a few microseconds; this does not become a
+    /// hot-path bottleneck because read-only actions skip the check entirely.
+    ///
+    /// On daemon crash the in-memory guard is lost. That is correct: the
+    /// daemon's SQLite store will show the orphaned `Running` row; the
+    /// operator can inspect it via `ListJobHistory`.
+    pub running_high_risk_reboot: Arc<Mutex<Option<String>>>,
 }
 
 #[derive(Debug)]
@@ -83,6 +105,7 @@ impl DaemonState {
             audit,
             policy,
             forwarder,
+            running_high_risk_reboot: Arc::new(Mutex::new(None)),
         })
     }
 
@@ -101,6 +124,7 @@ impl DaemonState {
             audit,
             policy,
             forwarder,
+            running_high_risk_reboot: Arc::new(Mutex::new(None)),
         }
     }
 
