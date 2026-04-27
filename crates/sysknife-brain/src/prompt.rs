@@ -538,7 +538,13 @@ Use `"username"` as the key — NOT `"user"`.
 
 **Network**:
 - `ConfigureWifi`: `{"ssid":"MyNetwork","password":"secret"}` (password optional for open networks)
-- `SetDnsServers`: `{"interface":"wlp1s0","servers":["1.1.1.1","8.8.8.8"]}`
+- `SetDnsServers`: `{"interface":"wlp1s0","servers":["1.1.1.1","8.8.8.8"]}` —
+  uses NetworkManager via `nmcli`. **Prefer `ResolvectlSetDns` (below) for
+  setting DNS servers**: it works regardless of network backend
+  (NetworkManager / systemd-networkd / netplan), where `nmcli` only works
+  on NetworkManager-managed interfaces. `SetDnsServers` is kept for cases
+  where the user explicitly wants the NetworkManager profile updated
+  (e.g. a Wi-Fi connection profile that should remember the DNS).
 
 **Job history**:
 - `ListJobHistory`: `{}` or any subset of `{"limit":20,"status_filter":"succeeded","action_filter":"RestartService","since_hours":24}`
@@ -626,6 +632,12 @@ const FEDORA_SELECTION_RULES: &str = r#"
   `UpdateSystem` applies them (HIGH) — only propose when the user says "update" or
   "apply updates".
 - For "what's layered on this system?", use `GetLayeredPackages` (LOW, no params).
+- **DNS configuration**: prefer `ResolvectlSetDns` (cross-distro, MEDIUM) over
+  the NetworkManager-only `SetDnsServers` (also MEDIUM). `resolvectl` works on
+  any systemd-resolved host regardless of whether NetworkManager,
+  systemd-networkd, or netplan is the active backend. Only use `SetDnsServers`
+  when the user explicitly wants the NetworkManager *profile* updated (so the
+  DNS sticks across Wi-Fi connection cycles).
 "#;
 
 const FEDORA_DISAMBIGUATION: &str = r#"
