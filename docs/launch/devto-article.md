@@ -134,16 +134,17 @@ The polkit integration also benefits from Rust's `?` propagation: every
 privilege check either succeeds or returns an error that propagates cleanly to
 the caller. No silent fallthrough.
 
-The 1 026 tests running on every commit via `cargo nextest` give me confidence
+The 1 227 tests running on every commit via `cargo nextest` give me confidence
 that the type boundaries hold end-to-end. E2E stories drive the full
 plan → approve → execute → audit cycle against a real daemon socket.
 
 ## What is not done yet
 
-Silverblue and Fedora 41+ are fully supported. Ubuntu action families landed
-in the codebase in the last sprint; the planner-side distro hints and live E2E
-validation against an Ubuntu VM are still in progress. If you are on Ubuntu
-today the CLI will plan correctly, but I would not call it validated yet.
+Silverblue and Fedora 41+ AND Ubuntu 22.04 / 24.04 / 26.04 LTS are fully
+supported. The Ubuntu action set covers apt, snap, ufw, netplan, distrobox,
+AppArmor, fail2ban, and Ubuntu Pro — 50+ Ubuntu-native typed actions on top
+of the cross-distro core. Multi-LTS E2E validation runs against live VMs
+for all three Ubuntu releases, in addition to the Fedora atomic suite.
 
 Arch, NixOS, and other distros are roadmap items. The LACS spec (the typed
 action protocol SysKnife implements) is CC0 — other implementations for other

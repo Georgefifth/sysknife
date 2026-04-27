@@ -3,8 +3,8 @@
 ## Title
 
 **I built SysKnife: an AI Linux sysadmin where the AI plans but cannot run
-shell. Typed actions, approval gate, tamper-evident audit chain. MIT,
-Fedora-first.**
+shell. Typed actions, approval gate, tamper-evident audit chain. MIT.
+Fedora 41+ and Ubuntu 22.04 / 24.04 / 26.04 LTS.**
 
 ---
 
@@ -60,10 +60,10 @@ for deployment changes, inverse firewall rules for firewall changes, etc.
 
 **Current state**
 
-- Fedora 41+ and Silverblue 41+: fully supported.
-- Ubuntu action families: landed in the codebase; planner hints and live E2E
-  validation on Ubuntu VM are in flight.
-- 1 026 tests passing on every commit.
+- Fedora 41+ / Silverblue 41+: fully supported.
+- Ubuntu 22.04 / 24.04 / 26.04 LTS: fully supported (multi-LTS VM E2E
+  validation across all three).
+- 1 227 tests passing on every commit.
 - 80+ typed actions: packages, services, firewall, containers, flatpak,
   toolbox, SSH keys, kernel args, users, deployments.
 - MIT license.

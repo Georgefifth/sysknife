@@ -178,10 +178,11 @@ actions handle well.
 I want to be direct about the current scope because overclaiming is the fastest
 way to lose trust with the people who matter most.
 
-Fedora 41+ and Silverblue 41+ are fully supported. Ubuntu action families are
-implemented in the codebase — the work is real — but the planner-side distro
-detection hints and live end-to-end validation against a Ubuntu VM are still in
-progress. I would not run SysKnife in production on Ubuntu today.
+Fedora 41+ / Silverblue 41+ AND Ubuntu 22.04 / 24.04 / 26.04 LTS are fully
+supported. The Ubuntu action set covers apt, snap, ufw, netplan, distrobox,
+AppArmor, fail2ban, and Ubuntu Pro — 50+ Ubuntu-native typed actions on top
+of the cross-distro core. Multi-LTS E2E validation runs against live VMs for
+all three Ubuntu releases, in addition to the Fedora atomic suite.
 
 Arch, NixOS, and other distros are roadmap items. The LACS protocol — the
 typed action specification that SysKnife implements — is CC0 and lives at

@@ -76,10 +76,12 @@ What this gets you:
 - RFC 5424 syslog forwarding to Splunk / Sentinel / QRadar ships out of the box.
 - Works with Ollama (no API key, fully offline) or any cloud provider.
 
-Current state: Fedora 41+ and Silverblue 41+ are fully supported.
-Ubuntu action families landed; planner-side hints and live E2E validation
-against a Ubuntu VM are in flight. MIT license. 1 026 tests pass on every
-commit. 80+ typed actions.
+Current state: Fedora 41+ / Silverblue 41+ AND Ubuntu 22.04 / 24.04 /
+26.04 LTS are fully supported. MIT license. 1 227 tests pass on every
+commit. 80+ typed actions across rpm-ostree, apt, snap, ufw, netplan,
+distrobox, AppArmor, fail2ban, Ubuntu Pro. `npx sysknife-setup`
+auto-downloads the right binary for your host (SHA256-verified) and
+wires SysKnife into Claude Code, Cursor, or Codex CLI in one command.
 
 The spec (LACS — Linux Agent Control Standard) is CC0 and lives separately at
 github.com/lacs-foundation/specification. Other implementations are encouraged.

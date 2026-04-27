@@ -108,11 +108,11 @@ three times in a row on the same box.
 
 Current state, no overclaiming:
 
-- Fedora 41+ / Silverblue 41+: fully supported, 80+ actions
-- Ubuntu: action families implemented, planner integration + E2E still in
-  progress — not yet validated for production use
+- Fedora 41+ / Silverblue 41+: fully supported
+- Ubuntu 22.04 / 24.04 / 26.04 LTS: fully supported (multi-LTS VM E2E)
+- 80+ typed actions across rpm-ostree, apt, snap, ufw, netplan, distrobox
 - Arch / NixOS: roadmap
-- 1 026 tests, MIT license
+- 1 227 tests, MIT license
 
 ---
 

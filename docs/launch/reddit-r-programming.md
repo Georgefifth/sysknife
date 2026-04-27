@@ -100,12 +100,13 @@ response cannot bypass approval by claiming it already got it.
 
 ### Current state and limitations
 
-- Fedora 41+ and Silverblue 41+ are fully supported with all 80+ actions.
-- Ubuntu action families are implemented; the planner hints and live E2E
-  validation against a Ubuntu VM are still in progress.
+- Fedora 41+ / Silverblue 41+ AND Ubuntu 22.04 / 24.04 / 26.04 LTS are
+  fully supported with 80+ typed actions across rpm-ostree, apt, snap,
+  ufw, netplan, distrobox, AppArmor, fail2ban, and Ubuntu Pro. Multi-LTS
+  E2E validation runs against live VMs for all three Ubuntu releases.
 - The protocol (LACS — Linux Agent Control Standard) is CC0 at
   <https://github.com/lacs-foundation/specification>.
-- 1 026 tests. MIT license.
+- 1 227 tests. MIT license.
 - Repo: <https://github.com/lacs-foundation/sysknife>
 
 I am happy to discuss the type design, the IPC framing, the provider adapter

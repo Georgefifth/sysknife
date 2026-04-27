@@ -4,7 +4,7 @@
 
 **I built SysKnife: describe a Linux task in plain English, an LLM plans it
 (Ollama works, fully offline), you approve, every action gets signed and
-audited. MIT, Fedora-first.**
+audited. MIT, Fedora 41+ and Ubuntu 22.04/24.04/26.04 LTS.**
 
 ---
 
@@ -71,10 +71,9 @@ with.
 
 **Current limits (being honest)**
 
-- Ubuntu action families are in the codebase but planner integration and
-  live E2E tests on Ubuntu are still in progress. If you are on Ubuntu
-  today, the CLI plans correctly but execution is not yet validated.
-- Arch / Pacman and NixOS are roadmap items, not current work.
+- Arch / Pacman and NixOS are roadmap items, not current work
+  (Ubuntu 22.04 / 24.04 / 26.04 LTS now fully supported alongside
+  Fedora — multi-LTS VM E2E validation across all three).
 - The GUI (Tauri shell) is functional but the CLI is the primary interface
   for now.
 
