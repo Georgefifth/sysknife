@@ -8,7 +8,7 @@
 </div>
 
 <img
-  src="https://raw.githubusercontent.com/sysknife-project/sysknife/main/assets/demo/demo.gif"
+  src="https://raw.githubusercontent.com/lacs-project/sysknife/main/assets/demo/demo.gif"
   alt="SysKnife demo — natural language to typed plan to live execution"
   class="sysknife-demo"
 />
@@ -84,7 +84,7 @@ npx sysknife-setup
 ```
 
 <img
-  src="https://raw.githubusercontent.com/sysknife-project/sysknife/main/assets/demo/mcp-flow.gif"
+  src="https://raw.githubusercontent.com/lacs-project/sysknife/main/assets/demo/mcp-flow.gif"
   alt="SysKnife MCP flow — plan and approve from inside Claude Code"
   class="sysknife-demo"
 />
@@ -102,7 +102,7 @@ See the [MCP Server guide](mcp.md) for full setup and the approval-gate hook.
 > See [Distro Support](distro-support.md) for the full matrix.
 
 ```sh
-git clone https://github.com/sysknife-project/sysknife
+git clone https://github.com/lacs-project/sysknife
 cd sysknife && make build && sudo make install
 sudo systemctl enable --now sysknife-daemon
 sysknife "show disk usage"
@@ -118,5 +118,5 @@ SysKnife auto-detects it. See [Quick Start](quickstart.md).
 140+ typed actions · 1,227 tests · Fedora / Silverblue fully supported · MIT
 
 SysKnife is the reference implementation of the
-[LACS specification](https://github.com/sysknife-project/specification) — a
+[LACS specification](https://github.com/lacs-project/specification) — a
 CC0 public-domain protocol for AI agents that operate at the Linux system level.

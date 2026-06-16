@@ -7,8 +7,8 @@ src = "docs"
 
 [output.html]
 site-url = "/sysknife/"
-git-repository-url = "https://github.com/sysknife-project/sysknife"
-edit-url-template = "https://github.com/sysknife-project/sysknife/edit/main/docs/{path}"
+git-repository-url = "https://github.com/lacs-project/sysknife"
+edit-url-template = "https://github.com/lacs-project/sysknife/edit/main/docs/{path}"
 default-theme = "navy"
 preferred-dark-theme = "navy"
 no-section-label = false

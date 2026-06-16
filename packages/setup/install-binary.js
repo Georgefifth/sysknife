@@ -32,7 +32,7 @@ const { execFileSync } = require('node:child_process');
 // ---------------------------------------------------------------------------
 
 /** GitHub API endpoint for the latest sysknife release. */
-const RELEASES_API = 'https://api.github.com/repos/sysknife-project/sysknife/releases/latest';
+const RELEASES_API = 'https://api.github.com/repos/lacs-project/sysknife/releases/latest';
 
 /** User-agent required by GitHub API. */
 const USER_AGENT = 'sysknife-setup/0.1 (node)';
@@ -75,7 +75,7 @@ function err(msg)  { console.log(`  ${R}✗${X}  ${msg}`); }
 function detectPlatform() {
   if (process.platform !== 'linux') {
     throw new Error(
-      `SysKnife is Linux-only; see https://github.com/sysknife-project/sysknife for cross-distro plans.\n` +
+      `SysKnife is Linux-only; see https://github.com/lacs-project/sysknife for cross-distro plans.\n` +
       `  Detected platform: ${process.platform}`
     );
   }
@@ -451,7 +451,7 @@ async function installBinaryIfMissing(opts) {
   } catch (e) {
     err(`Failed to fetch release metadata: ${e.message}`);
     err('Check your internet connection or install manually:');
-    step('https://github.com/sysknife-project/sysknife/releases/latest');
+    step('https://github.com/lacs-project/sysknife/releases/latest');
     process.exit(1);
   }
 
@@ -473,7 +473,7 @@ async function installBinaryIfMissing(opts) {
     step(cliAsset);
     step(daemonAsset);
     step(sumsAsset);
-    err('Install manually from: https://github.com/sysknife-project/sysknife/releases/latest');
+    err('Install manually from: https://github.com/lacs-project/sysknife/releases/latest');
     process.exit(1);
   }
 

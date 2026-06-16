@@ -19,7 +19,7 @@ commit. Live-VM E2E runs against a real Silverblue qcow2 in the
 
 ## Active milestone — Ubuntu LTS
 
-Tracking issue: [#33 Phase 2b — Ubuntu action implementations](https://github.com/sysknife-project/sysknife/issues/33)
+Tracking issue: [#33 Phase 2b — Ubuntu action implementations](https://github.com/lacs-project/sysknife/issues/33)
 
 | Release | Codename | Released | Standard EOL | ESM EOL | SysKnife state |
 |---|---|---|---|---|:---:|

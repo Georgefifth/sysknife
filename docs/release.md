@@ -41,7 +41,7 @@ with a workflow notice; the GitHub Release still proceeds normally.
 
 ### How to Create the Token
 
-1. Log in to <https://www.npmjs.com> as the `sysknife-project` org admin.
+1. Log in to <https://www.npmjs.com> as the `lacs-project` org admin.
 2. Go to **Account → Access Tokens → Generate New Token → Granular Access Token**.
 3. Set **Packages and scopes** → `sysknife-setup` → **Read and write**.
 4. Copy the token and add it as the `NPM_TOKEN` secret in GitHub.
@@ -107,6 +107,6 @@ sysknife-cli
 After the workflow completes:
 
 - GitHub Release assets are visible at
-  `https://github.com/sysknife-project/sysknife/releases/tag/vX.Y.Z`.
+  `https://github.com/lacs-project/sysknife/releases/tag/vX.Y.Z`.
 - npm package is visible at `https://www.npmjs.com/package/sysknife-setup`.
 - `npx sysknife-setup --help` should print the help text and exit 0.

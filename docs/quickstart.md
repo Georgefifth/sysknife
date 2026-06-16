@@ -12,7 +12,7 @@
 (see Step 2).
 
 ```sh
-git clone https://github.com/sysknife-project/sysknife
+git clone https://github.com/lacs-project/sysknife
 cd sysknife
 make build
 sudo make install

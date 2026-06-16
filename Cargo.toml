@@ -14,8 +14,8 @@ members = [
 [workspace.package]
 edition = "2021"
 license = "MIT"
-repository = "https://github.com/sysknife-project/sysknife"
-homepage = "https://github.com/sysknife-project/sysknife"
+repository = "https://github.com/lacs-project/sysknife"
+homepage = "https://github.com/lacs-project/sysknife"
 
 [workspace.dependencies]
 async-trait = "0.1"

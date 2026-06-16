@@ -6,7 +6,7 @@ Linux system administration tasks through SysKnife's approval-gated,
 audit-logged path.
 
 <img
-  src="https://raw.githubusercontent.com/sysknife-project/sysknife/main/assets/demo/mcp-flow.gif"
+  src="https://raw.githubusercontent.com/lacs-project/sysknife/main/assets/demo/mcp-flow.gif"
   alt="SysKnife MCP flow — Claude Code plans, user approves, daemon executes"
   class="sysknife-demo"
 />

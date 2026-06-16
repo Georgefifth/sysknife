@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/sysknife-project/sysknife">
+  <a href="https://github.com/lacs-project/sysknife">
     <img src="assets/logo/sysknife.svg" alt="SysKnife" width="170" height="170"/>
   </a>
 </p>
@@ -11,11 +11,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/sysknife-project/sysknife/actions"><img src="https://img.shields.io/github/actions/workflow/status/sysknife-project/sysknife/ci.yml?branch=main&style=flat-square&logo=github&label=CI" alt="CI"></a>
-  <a href="https://github.com/sysknife-project/sysknife/blob/main/LICENSE"><img src="https://img.shields.io/github/license/sysknife-project/sysknife?style=flat-square" alt="License"></a>
-  <a href="https://github.com/sysknife-project/sysknife/stargazers"><img src="https://img.shields.io/github/stars/sysknife-project/sysknife?style=flat-square&logo=github" alt="Stars"></a>
-  <a href="https://github.com/sysknife-project/sysknife/issues"><img src="https://img.shields.io/github/issues/sysknife-project/sysknife?style=flat-square" alt="Issues"></a>
-  <a href="https://github.com/sysknife-project/sysknife/discussions"><img src="https://img.shields.io/github/discussions/sysknife-project/sysknife?style=flat-square&label=discuss" alt="Discussions"></a>
+  <a href="https://github.com/lacs-project/sysknife/actions"><img src="https://img.shields.io/github/actions/workflow/status/lacs-project/sysknife/ci.yml?branch=main&style=flat-square&logo=github&label=CI" alt="CI"></a>
+  <a href="https://github.com/lacs-project/sysknife/blob/main/LICENSE"><img src="https://img.shields.io/github/license/lacs-project/sysknife?style=flat-square" alt="License"></a>
+  <a href="https://github.com/lacs-project/sysknife/stargazers"><img src="https://img.shields.io/github/stars/lacs-project/sysknife?style=flat-square&logo=github" alt="Stars"></a>
+  <a href="https://github.com/lacs-project/sysknife/issues"><img src="https://img.shields.io/github/issues/lacs-project/sysknife?style=flat-square" alt="Issues"></a>
+  <a href="https://github.com/lacs-project/sysknife/discussions"><img src="https://img.shields.io/github/discussions/lacs-project/sysknife?style=flat-square&label=discuss" alt="Discussions"></a>
   <a href="https://www.npmjs.com/package/sysknife-setup"><img src="https://img.shields.io/npm/v/sysknife-setup?style=flat-square&logo=npm&label=npx%20setup" alt="npm version"></a>
 </p>
 
@@ -35,7 +35,7 @@
   <a href="docs/distro-support.md">Distro matrix</a> ·
   <a href="ROADMAP.md">Roadmap</a> ·
   <a href="CONTRIBUTING.md">Contribute</a> ·
-  <a href="https://github.com/sysknife-project/sysknife/discussions">Discuss</a>
+  <a href="https://github.com/lacs-project/sysknife/discussions">Discuss</a>
 </p>
 
 <p align="center">
@@ -100,7 +100,7 @@ in the same turn.
 
 ```sh
 # Build + install the daemon the wizard configures
-git clone https://github.com/sysknife-project/sysknife
+git clone https://github.com/lacs-project/sysknife
 cd sysknife
 make build
 sudo make install
@@ -244,7 +244,7 @@ SysKnife is the reference implementation of the **LACS (Linux Agent Control
 Standard)** protocol — typed actions, risk classification, approval gates,
 audit requirements. The spec is CC0 (public domain):
 
-→ **[sysknife-project/specification](https://github.com/sysknife-project/specification)**
+→ **[lacs-project/specification](https://github.com/lacs-project/specification)**
 
 Other implementations for other distros and languages are explicitly
 encouraged.
@@ -256,7 +256,7 @@ now — see [`docs/distro-support.md`](docs/distro-support.md) for the
 roadmap matrix and [`CONTRIBUTING.md`](CONTRIBUTING.md) for the workflow.
 
 Issues labelled
-[`good first issue`](https://github.com/sysknife-project/sysknife/labels/good%20first%20issue)
+[`good first issue`](https://github.com/lacs-project/sysknife/labels/good%20first%20issue)
 are scoped with clear acceptance criteria.
 
 ## Documentation
@@ -278,14 +278,14 @@ are scoped with clear acceptance criteria.
 |---------|---------|-------|
 | **npm** | `npx sysknife-setup` | [npmjs.com/package/sysknife-setup](https://www.npmjs.com/package/sysknife-setup) — zero-install setup wizard |
 | **crates.io** | `cargo install sysknife-cli` / `cargo install sysknife-daemon` | Available once `CARGO_REGISTRY_TOKEN` is configured — see [docs/release.md](docs/release.md) |
-| **GitHub Releases** | Download from [Releases](https://github.com/sysknife-project/sysknife/releases) | Prebuilt x86_64 + aarch64 binaries with SHA-256 checksums on every tag |
+| **GitHub Releases** | Download from [Releases](https://github.com/lacs-project/sysknife/releases) | Prebuilt x86_64 + aarch64 binaries with SHA-256 checksums on every tag |
 
 ## License
 
 [MIT](LICENSE). Free to use, modify, distribute, and embed in proprietary
 products without restriction.
 
-The [LACS specification](https://github.com/sysknife-project/specification) is
+The [LACS specification](https://github.com/lacs-project/specification) is
 [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) — public domain.
 
 ---
@@ -293,5 +293,5 @@ The [LACS specification](https://github.com/sysknife-project/specification) is
 <p align="center">
   Built by <a href="https://github.com/vladimirrotariu">Vladimir Rotariu</a>.
   ·
-  Issues, ideas, war stories — <a href="https://github.com/sysknife-project/sysknife/discussions">come say hi</a>.
+  Issues, ideas, war stories — <a href="https://github.com/lacs-project/sysknife/discussions">come say hi</a>.
 </p>
