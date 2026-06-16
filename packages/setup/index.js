@@ -929,7 +929,7 @@ if (process.argv.includes('--help') || process.argv.includes('-h')) {
   npx sysknife-setup
 
 \x1b[1mSEE ALSO\x1b[0m
-  https://github.com/lacs-foundation/sysknife/blob/main/docs/release.md
+  https://github.com/sysknife-project/sysknife/blob/main/docs/release.md
 `);
   process.exit(0);
 }

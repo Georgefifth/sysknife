@@ -21,7 +21,7 @@ SSH into the guest and run:
 
 ```sh
 # Clone the repo (or copy a pre-built binary)
-git clone https://github.com/lacs-foundation/sysknife
+git clone https://github.com/sysknife-project/sysknife
 cd sysknife
 
 # Build and install (requires Rust stable)

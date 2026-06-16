@@ -9,6 +9,12 @@ on:
 permissions:
   contents: read
 
+# Cancel superseded runs on the same ref (saves runner minutes). Pushes to
+# main are never cancelled mid-flight; only PR iterations supersede each other.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   docs-and-hygiene:
     runs-on: ubuntu-latest
@@ -129,3 +135,22 @@ jobs:
 
       - name: Test workspace
         run: cargo nextest run --workspace --locked
+
+  security-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install cargo-audit
+        uses: taiki-e/install-action@cargo-audit
+
+      - name: Audit dependencies for known RustSec advisories
+        # Fails the build on any unignored vulnerability. Unmaintained-crate
+        # warnings are reported but non-fatal (default cargo-audit behaviour).
+        #
+        # RUSTSEC-2026-0097 (rand 0.7.3) is ignored: it is pulled transitively
+        # only by the Tauri desktop shell's webview deps (kuchikiki/selectors),
+        # is not reachable from the privileged daemon, brain, or CLI, and has
+        # no fixed upstream release yet. Re-evaluate when Tauri bumps the chain.
+        run: cargo audit --ignore RUSTSEC-2026-0097

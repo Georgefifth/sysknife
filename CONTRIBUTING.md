@@ -8,7 +8,7 @@
 ## TL;DR
 
 ```sh
-git clone https://github.com/lacs-foundation/sysknife
+git clone https://github.com/sysknife-project/sysknife
 cd sysknife
 pip install pre-commit && pre-commit install
 cd apps/sysknife-shell && pnpm install && cd ../..
@@ -31,8 +31,8 @@ These are where contributions move the needle the most. Each links to a
 
 | Area | Why it matters | Difficulty |
 |---|---|---|
-| **Ubuntu LTS support** ([tracker](https://github.com/lacs-foundation/sysknife/issues?q=is%3Aopen+label%3Aubuntu)) | Ubuntu 22.04 (jammy), 24.04 (noble), and 26.04 (resolute) are all validated with the multi-LTS VM tooling. `ubuntu-vm.sh` accepts `UBUNTU_RELEASE=jammy\|noble\|resolute`. Remaining: E2E exec stories, additional apt / snap / ufw actions. | Medium |
-| **Distro detection coverage** ([tracker](https://github.com/lacs-foundation/sysknife/issues?q=is%3Aopen+label%3Adistro-detection)) | Robust `/etc/os-release` parsing for every LTS we claim to support. Pure-function tests, no integration mocks. | Easy |
+| **Ubuntu LTS support** ([tracker](https://github.com/sysknife-project/sysknife/issues?q=is%3Aopen+label%3Aubuntu)) | Ubuntu 22.04 (jammy), 24.04 (noble), and 26.04 (resolute) are all validated with the multi-LTS VM tooling. `ubuntu-vm.sh` accepts `UBUNTU_RELEASE=jammy\|noble\|resolute`. Remaining: E2E exec stories, additional apt / snap / ufw actions. | Medium |
+| **Distro detection coverage** ([tracker](https://github.com/sysknife-project/sysknife/issues?q=is%3Aopen+label%3Adistro-detection)) | Robust `/etc/os-release` parsing for every LTS we claim to support. Pure-function tests, no integration mocks. | Easy |
 | **Action catalogue gaps** | Add a typed action (e.g. `EnableFirewallZone`) — small, isolated, every PR includes the policy entry + risk level + tests. | Easy |
 | **E2E story coverage** | Real prompts, real LLM, real daemon. We have ~10 stories; we want 100+ across both distros. | Medium |
 | **GUI polish (Tauri shell)** | TypeScript + React. Real OSS UX, not a thin wrapper around the daemon. | Medium |
@@ -40,9 +40,9 @@ These are where contributions move the needle the most. Each links to a
 | **Translations** | i18n for the shell. Spanish, German, Japanese, Mandarin in priority order. | Easy |
 
 Filter the issue tracker by
-[`good first issue`](https://github.com/lacs-foundation/sysknife/labels/good%20first%20issue)
+[`good first issue`](https://github.com/sysknife-project/sysknife/labels/good%20first%20issue)
 or
-[`help wanted`](https://github.com/lacs-foundation/sysknife/labels/help%20wanted)
+[`help wanted`](https://github.com/sysknife-project/sysknife/labels/help%20wanted)
 to find something self-contained.
 
 ## Workflow
@@ -143,4 +143,4 @@ The full contributing guide — every nuance, every edge case, every
 [`docs/contributing/CONTRIBUTING.md`](docs/contributing/CONTRIBUTING.md).
 
 Questions? Open a
-[GitHub Discussion](https://github.com/lacs-foundation/sysknife/discussions).
+[GitHub Discussion](https://github.com/sysknife-project/sysknife/discussions).

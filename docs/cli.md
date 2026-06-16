@@ -9,7 +9,7 @@ the [main README](../README.md) and run `npx sysknife-setup`. Both paths
 share the daemon, the audit chain, and the typed-action set.
 
 <img
-  src="https://raw.githubusercontent.com/lacs-foundation/sysknife/main/assets/demo/demo.gif"
+  src="https://raw.githubusercontent.com/sysknife-project/sysknife/main/assets/demo/demo.gif"
   alt="sysknife CLI demo"
   class="sysknife-demo"
 />

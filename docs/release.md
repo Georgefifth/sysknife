@@ -41,7 +41,7 @@ with a workflow notice; the GitHub Release still proceeds normally.
 
 ### How to Create the Token
 
-1. Log in to <https://www.npmjs.com> as the `lacs-foundation` org admin.
+1. Log in to <https://www.npmjs.com> as the `sysknife-project` org admin.
 2. Go to **Account → Access Tokens → Generate New Token → Granular Access Token**.
 3. Set **Packages and scopes** → `sysknife-setup` → **Read and write**.
 4. Copy the token and add it as the `NPM_TOKEN` secret in GitHub.
@@ -68,25 +68,6 @@ non-zero the publish is aborted.  You can run the same check locally:
 
 ```bash
 cd packages/setup && npm publish --dry-run
-```
-
-## GitHub Packages Publishing
-
-The workflow also publishes `@lacs-foundation/sysknife-setup` to GitHub Packages
-on every tag.  No extra secret is required — the workflow's `GITHUB_TOKEN` provides
-`packages:write` permission automatically.
-
-After a tag is pushed, the package appears in the **Packages** sidebar of the
-GitHub repo at `https://github.com/orgs/lacs-foundation/packages`.
-
-Consumers install it with:
-
-```bash
-# Add to ~/.npmrc (or project .npmrc):
-@lacs-foundation:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
-
-npm install @lacs-foundation/sysknife-setup
 ```
 
 ## crates.io Publishing
@@ -126,8 +107,6 @@ sysknife-cli
 After the workflow completes:
 
 - GitHub Release assets are visible at
-  `https://github.com/lacs-foundation/sysknife/releases/tag/vX.Y.Z`.
+  `https://github.com/sysknife-project/sysknife/releases/tag/vX.Y.Z`.
 - npm package is visible at `https://www.npmjs.com/package/sysknife-setup`.
-- GitHub Packages entry is visible at
-  `https://github.com/orgs/lacs-foundation/packages`.
 - `npx sysknife-setup --help` should print the help text and exit 0.

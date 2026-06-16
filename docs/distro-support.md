@@ -13,13 +13,13 @@ homelab boxes that operators interact with via SSH or a GUI shell.
 | **Fedora 41** | Workstation + Server | 60+ | 7 read-only + 3 daemon | ✅ |
 | **Fedora Silverblue 41** | Atomic Desktop | 60+ (rpm-ostree native) | 7 read-only + 3 daemon | ✅ |
 
-Both are exercised by the workspace test suite (860+ tests) on every
+Both are exercised by the workspace test suite (1,227 tests) on every
 commit. Live-VM E2E runs against a real Silverblue qcow2 in the
 `tests/e2e/` harness.
 
 ## Active milestone — Ubuntu LTS
 
-Tracking issue: [#33 Phase 2b — Ubuntu action implementations](https://github.com/lacs-foundation/sysknife/issues/33)
+Tracking issue: [#33 Phase 2b — Ubuntu action implementations](https://github.com/sysknife-project/sysknife/issues/33)
 
 | Release | Codename | Released | Standard EOL | ESM EOL | SysKnife state |
 |---|---|---|---|---|:---:|

@@ -13,7 +13,7 @@ The wizard auto-downloads prebuilt binaries verified against SHA256.
 
 ```sh
 # Local-clone path (works today):
-git clone https://github.com/lacs-foundation/sysknife
+git clone https://github.com/sysknife-project/sysknife
 node sysknife/packages/setup/index.js
 
 # Once published to npm:

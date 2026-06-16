@@ -275,7 +275,7 @@ else
     cat > /etc/systemd/system/sysknife-daemon.service <<'UNIT'
 [Unit]
 Description=LACS privileged daemon
-Documentation=https://github.com/lacs-foundation/sysknife
+Documentation=https://github.com/sysknife-project/sysknife
 After=network.target
 
 [Service]

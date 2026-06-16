@@ -11,14 +11,14 @@
 ## Original CLA (superseded — for historical reference only)
 
 By submitting a pull request to the SysKnife project
-(`github.com/lacs-foundation/sysknife`) you agreed to the following terms.
+(`github.com/sysknife-project/sysknife`) you agreed to the following terms.
 
 ### 1. Definitions
 
 - **"You"** means the individual or legal entity submitting a contribution.
 - **"Contribution"** means any original work of authorship submitted to the project.
 - **"Project"** means the SysKnife software and all associated repositories under
-  the `lacs-foundation` GitHub organisation.
+  the `sysknife-project` GitHub organisation.
 
 ### 2. Copyright licence
 

@@ -2,7 +2,7 @@
 * @vladimirrotariu
 
 # Core trust boundary — explicit ownership on each layer.
-crates/lacs-brain/   @vladimirrotariu
-crates/lacs-daemon/  @vladimirrotariu
-crates/lacs-types/   @vladimirrotariu
-.github/             @vladimirrotariu
+crates/sysknife-brain/   @vladimirrotariu
+crates/sysknife-daemon/  @vladimirrotariu
+crates/sysknife-types/   @vladimirrotariu
+.github/                 @vladimirrotariu

@@ -19,7 +19,13 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
 permissions:
-  contents: write
+  contents: read
+
+# Group per tag so distinct release tags never cancel each other, and never
+# cancel a release mid-flight (a half-uploaded release leaves a broken tag).
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -115,47 +121,6 @@ jobs:
           fi
           cd packages/setup && npm publish --access public
 
-  publish-github-packages:
-    name: Publish @lacs-foundation/sysknife-setup to GitHub Packages
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@lacs-foundation'
-
-      - name: Smoke-test the package
-        run: node packages/setup/index.js --help
-
-      - name: Rewrite package name + publishConfig
-        # Mutates the on-disk package.json only for this job's workspace.
-        # The original file in the repo is never committed with these changes.
-        run: |
-          cd packages/setup
-          node -e "
-            const fs = require('fs');
-            const p = JSON.parse(fs.readFileSync('package.json','utf8'));
-            p.name = '@lacs-foundation/sysknife-setup';
-            p.publishConfig = { registry: 'https://npm.pkg.github.com' };
-            fs.writeFileSync('package.json', JSON.stringify(p, null, 2) + '\n');
-          "
-
-      - name: Publish to GitHub Packages
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cd packages/setup && npm publish --access public
-
   publish-crates:
     name: Publish to crates.io
     needs: build
@@ -199,6 +164,8 @@ jobs:
     name: Create GitHub release
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # gh release create/upload
 
     steps:
       - name: Checkout

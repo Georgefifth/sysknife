@@ -12,7 +12,7 @@
 (see Step 2).
 
 ```sh
-git clone https://github.com/lacs-foundation/sysknife
+git clone https://github.com/sysknife-project/sysknife
 cd sysknife
 make build
 sudo make install
@@ -21,8 +21,8 @@ sudo systemctl enable --now sysknife-daemon
 
 > **ℹ️ Fedora / Silverblue**
 >
-> All 80+ actions are fully supported and tested on Fedora 41+ and Silverblue 41+.
-> Ubuntu action families are implemented — E2E validation is in progress.
+> All 140+ actions are fully supported and tested on Fedora 41+ and Silverblue 41+.
+> Ubuntu 22.04 / 24.04 / 26.04 LTS are supported; 24.04 is validated (65/65 stories on a live VM). See [distro support](distro-support.md).
 
 ## Step 2 — Choose an LLM
 

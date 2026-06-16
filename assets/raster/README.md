@@ -16,10 +16,10 @@ npx --yes svgexport assets/social-preview.svg assets/social-preview.png 1280:640
 
 GitHub's social-preview API is web-UI-only. To set the repo card image:
 
-1. Go to **Settings** on `lacs-foundation/sysknife`
+1. Go to **Settings** on `sysknife-project/sysknife`
 2. Scroll to **Social preview**
 3. Upload `assets/social-preview.png`
 
 Same flow for org avatar (`assets/raster/sysknife-1024.png`) — open
-`https://github.com/organizations/lacs-foundation/settings/profile`,
+`https://github.com/organizations/sysknife-project/settings/profile`,
 upload there.

@@ -59,7 +59,7 @@ function userUnitContent(daemonBin) {
 
   return `[Unit]
 Description=SysKnife privileged daemon (user session)
-Documentation=https://github.com/lacs-foundation/sysknife
+Documentation=https://github.com/sysknife-project/sysknife
 After=default.target
 
 [Service]
@@ -218,7 +218,7 @@ async function _installSystemService(daemonBinPath) {
   console.log();
   console.log(`  The repository Makefile handles all of this:`);
   console.log();
-  console.log(`    ${D}git clone https://github.com/lacs-foundation/sysknife${X}`);
+  console.log(`    ${D}git clone https://github.com/sysknife-project/sysknife${X}`);
   console.log(`    ${D}cd sysknife && make install${X}`);
   console.log();
 

@@ -29,7 +29,7 @@ integration tests without it.
 ## Clone and Set Up
 
 ```sh
-git clone https://github.com/lacs-foundation/sysknife
+git clone https://github.com/sysknife-project/sysknife
 cd sysknife
 
 # Install git hooks (run once)
@@ -214,7 +214,7 @@ crates/
   sysknife-brain/     LLM planner, provider adapters, safety fence
   sysknife-types/     Shared domain types (CallerRole, RiskLevel, JobState, …)
   sysknife-core/      Config loading, shared constants
-  sysknife-daemon/    Privileged executor, 60+ actions, IPC, rollback, SQLite
+  sysknife-daemon/    Privileged executor, 140+ actions, IPC, rollback, SQLite
   sysknife-proto/     Protobuf definitions (future use)
 apps/
   sysknife-shell/     Tauri + React GUI
