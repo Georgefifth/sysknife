@@ -14,7 +14,7 @@
 //! Adding support for a new distro means:
 //!
 //! 1. Add a variant here (e.g. `ArchLinux`).
-//! 2. Update [`detect()`] to recognise it via `ID=` in `/etc/os-release`.
+//! 2. Update `detect()` to recognise it via `ID=` in `/etc/os-release`.
 //! 3. Create `crates/sysknife-daemon/src/actions/<distro>.rs` with the
 //!    distro-specific `ActionSpec` builders.
 //! 4. Add match arms in `executor::build_action_spec` for the new variant.

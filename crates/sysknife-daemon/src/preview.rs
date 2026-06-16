@@ -3,7 +3,7 @@
 //! The dispatcher calls [`preview_action`] *before* execution to produce a
 //! [`PreviewEnvelope`] that the shell shows the operator. The envelope's
 //! risk level, side-effect list, reboot flag, and rollback flag come from
-//! the per-action [`PreviewProfile`] table in this module — **not** from
+//! the per-action `PreviewProfile` table in this module — **not** from
 //! the live system or from anything the planner suggested.
 //!
 //! ## Invariant: profile ↔ policy ↔ rollback consistency

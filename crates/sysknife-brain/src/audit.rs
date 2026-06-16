@@ -115,7 +115,7 @@ impl SafetyAuditLog {
     /// (CI, non-systemd hosts) the call is a no-op. On systemd systems the
     /// entry is protected by Forward Secure Sealing once FSS is enabled
     /// (`journalctl --setup-keys`), providing tamper-evident audit records.
-    /// Async wrapper for [`log_rejection`] that runs the file write on the
+    /// Async wrapper for `log_rejection` that runs the file write on the
     /// blocking pool. Call from `async fn` paths so the planner's reactor is
     /// not parked on a slow filesystem (NFS, encrypted home).
     pub async fn log_rejection_async(self, intent: String, reason: String, raw_plan: String) {

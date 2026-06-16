@@ -70,7 +70,7 @@ impl SanitizedToolOutput {
         self.into_tool_result_with_error(tool_use_id, call_id, false)
     }
 
-    /// As [`into_tool_result`], but flagged with `is_error = true` so the
+    /// As `into_tool_result`, but flagged with `is_error = true` so the
     /// LLM treats the message as a failure response.
     pub fn into_error_tool_result(
         self,
@@ -96,7 +96,7 @@ impl SanitizedToolOutput {
 
     /// Consume the envelope and return the wrapped string.
     ///
-    /// **Prefer [`into_tool_result`].**  The raw string lacks any compile-
+    /// **Prefer `into_tool_result`.**  The raw string lacks any compile-
     /// time guarantee that it will be re-wrapped in a `ToolResultBlock`;
     /// this method exists only for tests and one-off interop with code that
     /// genuinely needs the unwrapped envelope (e.g. snapshot tests).

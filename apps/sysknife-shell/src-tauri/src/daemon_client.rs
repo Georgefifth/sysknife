@@ -2,7 +2,7 @@
 //!
 //! Two client modes co-exist in this module:
 //!
-//! - **Synchronous** (`DaemonIpcClient`): implements [`StateClient`] for the
+//! - **Synchronous** (`DaemonIpcClient`): implements `StateClient` for the
 //!   brain planner. Used in production for the planning loop and in tests for
 //!   protocol verification. Uses `std::os::unix::net::UnixStream` with a
 //!   10-second timeout.

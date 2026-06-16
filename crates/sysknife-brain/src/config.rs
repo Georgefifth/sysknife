@@ -7,7 +7,7 @@
 //!   2. `ANTHROPIC_API_KEY` — required when provider is anthropic. Must be non-empty.
 //!      Other providers require their own key env var (e.g. `OPENAI_API_KEY`, `GEMINI_API_KEY`).
 //!   3. `SYSKNIFE_LLM_MODEL` — overrides the provider default model.
-//!   4. `SYSKNIFE_ANTHROPIC_URL` — overrides the Anthropic base URL (default: https://api.anthropic.com).
+//!   4. `SYSKNIFE_ANTHROPIC_URL` — overrides the Anthropic base URL (default: <https://api.anthropic.com>).
 //!   5. `SYSKNIFE_OLLAMA_URL` — overrides the Ollama base URL (default: http://localhost:11434).
 //!   6. `SYSKNIFE_BRAIN_MAX_TURNS` — planning loop turn limit (default: 10). Must be >= 1 when set.
 
@@ -37,7 +37,7 @@ pub const DEFAULT_MAX_TURNS: usize = 10;
 
 /// Configuration for the planning LLM.
 ///
-/// **Not `Clone`.**  The inner [`ProviderConfig`] holds the API key in
+/// **Not `Clone`.**  The inner `ProviderConfig` holds the API key in
 /// plaintext (rig's client builders take `String`, not `SecretString`), so
 /// every clone would silently materialise an extra copy of the secret in
 /// memory.  Keeping `BrainConfig` move-only forces every consumer to think

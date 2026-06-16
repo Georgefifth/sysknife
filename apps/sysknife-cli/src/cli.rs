@@ -4,7 +4,7 @@
 //! - [`Cli`] — top-level struct carrying all global flags
 //! - [`Command`] — named subcommands; [`Command::Intent`] catches free-form words
 //! - [`HistoryArgs`] — arguments specific to `sysknife history`
-//! - [`MaxRiskArg`] — `--max-risk` value-enum bridging to [`approval::MaxRisk`]
+//! - [`MaxRiskArg`] — `--max-risk` value-enum bridging to `approval::MaxRisk`
 //!
 //! Free-form intents work because `Command::Intent` uses `external_subcommand`:
 //! any first argument that does not match a named subcommand is captured there.

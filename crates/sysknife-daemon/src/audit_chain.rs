@@ -294,7 +294,7 @@ fn fill_random(buf: &mut [u8]) -> std::io::Result<()> {
 /// bytes `\\`, NUL, `RS`, `US` are escaped to `\\\\`, `\\0`, `\\1E`, `\\1F`
 /// respectively. The escape table is **prefix-free** (every escape starts
 /// with `\\`), so any value can be injected without ambiguity. See
-/// [`push_field`] for the implementation and tests for the round-trip.
+/// `push_field` for the implementation and tests for the round-trip.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ChainContent<'a> {
     pub seq: u64,

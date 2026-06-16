@@ -1,8 +1,8 @@
 # Global default: Vladimir Rotariu reviews everything.
-* @vladimirrotariu
+* @vladimirrott
 
 # Core trust boundary — explicit ownership on each layer.
-crates/sysknife-brain/   @vladimirrotariu
-crates/sysknife-daemon/  @vladimirrotariu
-crates/sysknife-types/   @vladimirrotariu
-.github/                 @vladimirrotariu
+crates/sysknife-brain/   @vladimirrott
+crates/sysknife-daemon/  @vladimirrott
+crates/sysknife-types/   @vladimirrott
+.github/                 @vladimirrott

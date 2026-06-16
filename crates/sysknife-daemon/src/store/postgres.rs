@@ -7,11 +7,11 @@
 //! ## Connection lifecycle
 //!
 //! [`PostgresStore::connect`] takes a [`PostgresConfig`] (URL plus pool +
-//! statement-cache tuning) and returns a configured [`sqlx::PgPool`]. The
+//! statement-cache tuning) and returns a configured `sqlx::PgPool`. The
 //! same pool is used for every request — sqlx handles connection reuse,
 //! retry on broken connections, and TLS via rustls.
 //!
-//! On first connect, the schema is created via [`PostgresStore::initialize`]
+//! On first connect, the schema is created via `PostgresStore::initialize`
 //! using `CREATE TABLE IF NOT EXISTS`. The schema mirrors the SQLite version
 //! field-for-field; the only dialect difference is `BIGINT NOT NULL UNIQUE`
 //! for `seq` instead of SQLite's `INTEGER NOT NULL UNIQUE`. `created_at` is

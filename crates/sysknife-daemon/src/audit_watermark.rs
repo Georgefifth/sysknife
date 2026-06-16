@@ -49,7 +49,7 @@ static WARNED_JOURNALD_UNAVAILABLE: OnceLock<()> = OnceLock::new();
 /// normally after logging a one-time warning to stderr.
 ///
 /// In `#[cfg(test)]` builds, calls are intercepted by a registered
-/// [`WatermarkSink`] instead of spawning a subprocess.
+/// `WatermarkSink` instead of spawning a subprocess.
 pub fn emit_chain_tip_watermark(seq: u64, chain_hash_hex: &str) {
     emit_watermark_impl(seq, chain_hash_hex);
 }

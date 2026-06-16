@@ -457,7 +457,7 @@ impl DaemonClient {
     // ------------------------------------------------------------------
 
     /// Preview a plan step.  Returns the [`PreviewEnvelope`] containing
-    /// `request_hash`; pass it verbatim to [`execute`] as `approval_hash`.
+    /// `request_hash`; pass it verbatim to `execute` as `approval_hash`.
     pub async fn preview(
         &self,
         action_name: &str,

@@ -84,7 +84,7 @@ impl RateLimiter {
         }
     }
 
-    /// Async wrapper that runs [`check_and_consume`] on the blocking pool.
+    /// Async wrapper that runs `check_and_consume` on the blocking pool.
     ///
     /// Use this from `async fn` paths.  The body holds a `Mutex` guard while
     /// reading and writing the on-disk timestamp file; on a slow or contended
@@ -110,7 +110,7 @@ impl RateLimiter {
     /// when the window is full. `retry_after_secs` is the number of seconds
     /// until the oldest call in the current window ages out (always >= 1).
     ///
-    /// Prefer [`check_and_consume_async`] from `async fn` call sites.
+    /// Prefer `check_and_consume_async` from `async fn` call sites.
     pub fn check_and_consume(&self) -> Result<(), u64> {
         let _guard = self.lock.lock().unwrap_or_else(|e| {
             eprintln!(

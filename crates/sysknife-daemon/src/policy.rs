@@ -475,7 +475,7 @@ pub enum ApprovalError {
 /// Constant-time hash compare.
 ///
 /// Internally constructs [`sysknife_types::RequestHash`] and
-/// [`ApprovalHash`] and forwards to `sysknife_types::approval_matches_request`
+/// `ApprovalHash` and forwards to `sysknife_types::approval_matches_request`
 /// — the canonical comparison.  The `&str` shape is kept because the
 /// dispatcher and a few tests hold raw strings; new code should construct
 /// the newtypes directly and skip this wrapper.

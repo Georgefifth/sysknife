@@ -283,7 +283,7 @@ impl std::error::Error for UnknownActionName {}
 /// `RequestHash` and [`ApprovalHash`] are intentionally distinct types even
 /// though they hold the same underlying string at runtime. The compiler will
 /// reject any code that swaps the two arguments to
-/// [`approval_matches_request`](crate::approval_matches_request) — without
+/// [`approval_matches_request`] — without
 /// these newtypes a `(String, String)` signature is one off-by-one parameter
 /// flip away from validating the wrong direction. The two also do **not**
 /// implement `PartialEq<ApprovalHash>`; the only sanctioned comparison is
@@ -325,7 +325,7 @@ impl From<String> for RequestHash {
     }
 }
 
-/// Hex-encoded SHA-256 hash of an [`ApprovalEnvelope`]-equivalent payload.
+/// Hex-encoded SHA-256 hash of an `ApprovalEnvelope`-equivalent payload.
 ///
 /// See [`RequestHash`] for the type-state rationale.
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
