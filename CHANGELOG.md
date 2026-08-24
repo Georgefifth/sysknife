@@ -50,6 +50,15 @@ Releases before `0.2.5` predate the public launch; their notes live in the
   The shell script now reads `CLAIM_FILES` from the Python module, and refuses to
   report success when that read comes back empty, which `set -euo pipefail` cannot
   catch on its own inside process substitution. Thanks to @Osheun.
+- **`operator_safe` kept U+2028 and U+2029, so the invisible-character set it
+  calls complete was not.** ([#276](https://github.com/lacs-project/sysknife/issues/276))
+  The drop arms covered `U+200B..=U+200F` and `U+202A..=U+202E`, leaving the two
+  line/paragraph separators in the gap between them. Terminals render both as
+  nothing, which is exactly the class the function drops by name: a plan summary
+  reading `remove nothing` could hide a different target from the operator
+  approving it. The bidi arm is now `U+2028..=U+202E`, the same widening
+  [#274](https://github.com/lacs-project/sysknife/pull/274) applied on the
+  model-facing path.
 
 ### Documentation
 
