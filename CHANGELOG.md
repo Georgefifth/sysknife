@@ -73,6 +73,15 @@ Releases before `0.2.5` predate the public launch; their notes live in the
   which decides whether an approval receipt is required. The encode path now
   goes through the same prost-generated enums the decode path already trusts
   (`i32::from(proto::X::from(value))`), and the three tables are deleted.
+- **`operator_safe` kept U+2028 and U+2029, so the invisible-character set it
+  calls complete was not.** ([#276](https://github.com/lacs-project/sysknife/issues/276))
+  The drop arms covered `U+200B..=U+200F` and `U+202A..=U+202E`, leaving the two
+  line/paragraph separators in the gap between them. Terminals render both as
+  nothing, which is exactly the class the function drops by name: a plan summary
+  reading `remove nothing` could hide a different target from the operator
+  approving it. The bidi arm is now `U+2028..=U+202E`, the same widening
+  [#274](https://github.com/lacs-project/sysknife/pull/274) applied on the
+  model-facing path. Thanks to @Georgefifth.
 
 ### Documentation
 
