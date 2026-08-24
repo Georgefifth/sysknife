@@ -64,6 +64,15 @@ Releases before `0.2.5` predate the public launch; their notes live in the
   The shell script now reads `CLAIM_FILES` from the Python module, and refuses to
   report success when that read comes back empty, which `set -euo pipefail` cannot
   catch on its own inside process substitution. Thanks to @Osheun.
+- **Outbound envelope encoding hand-typed the wire numbers while inbound
+  trusted the generated enum.** ([#281](https://github.com/lacs-project/sysknife/issues/281))
+  The three `From<…> for proto::…` conversions existed but were unused, and the
+  encode path wrote integers from three literal match tables instead. A
+  renumbered `.proto` would have moved the decode side with the file while the
+  encode side kept writing the old numbers — a peer reading `High` as `Medium`,
+  which decides whether an approval receipt is required. The encode path now
+  goes through the same prost-generated enums the decode path already trusts
+  (`i32::from(proto::X::from(value))`), and the three tables are deleted.
 
 ### Documentation
 
