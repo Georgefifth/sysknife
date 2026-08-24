@@ -29,6 +29,14 @@ fn failure_category_round_trips_through_proto() {
 }
 
 #[test]
+fn risk_level_round_trips_through_proto() {
+    let proto_level = proto::RiskLevel::try_from(3).unwrap();
+    let local_level = RiskLevel::try_from(proto_level).unwrap();
+
+    assert_eq!(local_level, RiskLevel::High);
+}
+
+#[test]
 fn request_envelope_round_trips_through_proto() {
     let value = RequestEnvelope {
         action_name: "InstallFlatpak".to_string(),
