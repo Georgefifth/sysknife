@@ -1,9 +1,6 @@
 use std::io;
+use sysknife_types::MAX_MESSAGE_BYTES;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
-
-/// Maximum body size accepted by `recv`. Connections sending a larger
-/// length header are terminated immediately.
-pub const MAX_MESSAGE_BYTES: usize = 4 * 1024 * 1024;
 
 #[derive(Debug, thiserror::Error)]
 pub enum FramingError {
