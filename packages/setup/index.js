@@ -898,18 +898,23 @@ async function main() {
   // After install, probe whether the daemon is reachable so the "Try it"
   // section can give accurate next-step advice.
 
+  let daemonSocketReachable = null;
   const firstLocalSocket = targets.find(t => !t.socket.startsWith('vsock://') && t.socket.startsWith('/'));
   if (firstLocalSocket) {
     // Retrying, because the daemon was started seconds ago and systemd returns
     // before it binds. See checkSocketWithRetry.
-    const reachable = checkSocketWithRetry(firstLocalSocket.socket);
-    if (reachable === true) {
+    daemonSocketReachable = checkSocketWithRetry(firstLocalSocket.socket);
+    if (daemonSocketReachable === true) {
       ok(`Daemon socket reachable: ${firstLocalSocket.socket}`);
-    } else if (reachable === false) {
+    } else if (daemonSocketReachable === false) {
       warn(`Daemon socket not reachable after 6s: ${firstLocalSocket.socket}`);
       step('Check it with:  systemctl --user status sysknife-daemon');
     }
   }
+
+  const daemonSetupIncomplete = daemonInstall
+    && !daemonInstall.daemonInstalled
+    && daemonSocketReachable !== true;
 
   // ── Next steps ───────────────────────────────────────────────────────────
 
@@ -923,8 +928,9 @@ async function main() {
   //
   // This used to fire only for `mode === 'system'`, which left the two other
   // not-installed outcomes ending on the success banner: a host without systemd
-  // (which returned no result at all) and a deliberate skip.
-  if (daemonInstall && !daemonInstall.daemonInstalled) {
+  // (which returned no result at all) and a deliberate skip. A reachable socket
+  // is the exception: an externally managed daemon already makes setup usable.
+  if (daemonSetupIncomplete) {
     const headline = {
       system: 'The system daemon is not installed yet.',
       none:   'No daemon service was installed: systemd was not detected.',
@@ -979,7 +985,15 @@ async function main() {
   }
 
   console.log();
-  ok('Setup complete');
+  if (daemonSetupIncomplete) {
+    const remainingSteps = daemonInstall.manualSteps.length
+      + (daemonInstall.mode === 'system' ? 1 : 0);
+    const stepLabel = remainingSteps === 1 ? 'step' : 'steps';
+    warn(`Setup incomplete: ${remainingSteps} ${stepLabel} left`);
+    process.exitCode = 3;
+  } else {
+    ok('Setup complete');
+  }
   console.log();
 }
 
@@ -1049,6 +1063,12 @@ if (process.argv.includes('--help') || process.argv.includes('-h')) {
   --dry-run     With --uninstall, print what would be removed and change
                 nothing.
   --help, -h    Show this help message and exit.
+
+\x1b[1mEXIT STATUS\x1b[0m
+  0  setup finished without reported outstanding steps
+  1  setup failed
+  2  command-line arguments are invalid or incomplete
+  3  setup finished with outstanding steps
 
 \x1b[1mDESCRIPTION\x1b[0m
   Interactive wizard that:
