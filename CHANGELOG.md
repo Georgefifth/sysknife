@@ -14,6 +14,37 @@ Releases before `0.2.5` predate the public launch; their notes live in the
 
 ### Added
 
+- **`sysknife --dangerously-skip-approval` runs with no human in the loop.**
+  Until now `--yes` could never auto-approve a HIGH-risk step, and there was no
+  way to say otherwise. The rule is right for a terminal and wrong for a
+  scheduled run.
+
+  The flag lifts the approval gate: HIGH becomes auto-approvable and the
+  post-preview confirmation stops asking. The preview is still fetched and
+  printed, because it is the only record of what an unattended run was about to
+  change. An explicit `--max-risk` still wins, and `--dry-run` still executes
+  nothing.
+
+  It lifts nothing else. Only catalogue actions with validated parameters run,
+  the polkit allowlist still gates every privileged call, the run still aborts
+  when the daemon rates a step above what the CLI approved, role authorization
+  is unchanged, and every step is still signed into the chain.
+
+  Two keys are required. The flag alone prints an explanation and exits 1; it
+  also needs `SYSKNIFE_I_ACCEPT_UNATTENDED_ROOT=1`, and only that exact value.
+  A flag left in a script and a variable left in a profile are the two ways
+  this gets armed by accident, so neither is sufficient alone. No short form,
+  no abbreviation, and a red banner naming the host and account before anything
+  runs.
+
+  The audit trail records it. The daemon writes a warning into the transaction's
+  `warnings`, which is stored as `warnings_json` and signed as one of the fields
+  in `ChainContent::canonical_bytes`, so an unattended run cannot later be
+  presented as one a human approved: editing the marker out of the stored column
+  makes `sysknife audit verify` report that row `Broken`. The CLI refuses to
+  execute if a daemon too old to record it drops the declaration.
+  [docs/cli.md](docs/cli.md#unattended-mode) has the full contract.
+
 - **`sysknife audit export` writes the signed chain rows as JSON.**
   ([#215](https://github.com/lacs-project/sysknife/issues/215),
   [#260](https://github.com/lacs-project/sysknife/pull/260))
@@ -28,6 +59,60 @@ Releases before `0.2.5` predate the public launch; their notes live in the
   redacted artifact: `request_hash` commits to the unredacted parameters as one
   unsalted SHA-256, so an export inherits the confidentiality class of the
   `0600` database it came from ([#268](https://github.com/lacs-project/sysknife/issues/268)).
+
+### Security
+
+- **The VM harnesses put provider API keys in the host and guest process tables.**
+  ([#316](https://github.com/lacs-project/sysknife/pull/316),
+  [#299](https://github.com/lacs-project/sysknife/issues/299))
+  `ubuntu-vm.sh` and `atomic-vm.sh` built `sudo VAR='value' bash …` into the ssh
+  command string, so every configured provider key was readable in `ps` on both
+  sides for the length of a story run. The variables now travel over ssh stdin
+  into a `0600` file under `/run`, written with `umask 077` before the
+  redirection, sourced by the guest shell and deleted before the test script
+  `exec`s. Measured rather than argued: a stub that records `cmd_ssh`'s arguments
+  sees four canaries on the old path and none on the new one. The single-quote
+  interpolation it replaces was also a command-injection hole, since any value
+  containing a quote became shell syntax on the guest.
+  `tests/e2e/vm-env-secrets.test.sh` holds the shape in CI. Thanks to
+  @xianjianlf2.
+
+- **CI ran on a Node release that no longer receives security fixes.**
+  ([#326](https://github.com/lacs-project/sysknife/pull/326))
+  Node 20 reached end-of-life on 2026-04-30, and three workflow jobs still
+  pinned it, two of them running `npm ci` with the workflow token in scope. All
+  three move to 24. `tests/release/node-eol.test.sh` compares every
+  `node-version:` pin against the dates published in
+  [nodejs/Release](https://github.com/nodejs/Release/blob/main/schedule.json),
+  so the check goes red on its own once a pinned major ages out, refuses a major
+  it has no entry for, and fails loudly if it finds no pin at all.
+
+  The same job installed `markdownlint-cli2`, `markdown-link-check` and
+  `yamllint` unpinned while holding that token; all three now name a version.
+
+### Changed
+
+- **`rmcp` 3.1, and the 2026-07-28 protocol revision with it.**
+  ([#324](https://github.com/lacs-project/sysknife/pull/324))
+  `ListResourcesResult` and `ListResourceTemplatesResult` gained `result_type`,
+  `ttl_ms` and `cache_scope`. All three stay `None`: an absent `result_type`
+  means complete, and advertising neither a cache scope nor a TTL keeps every
+  client asking the daemon rather than replaying a stored answer.
+  `ServerHandler::read_resource` now returns `ReadResourceResponse`, whose
+  `InputRequired` variant (SEP-2322) asks the client for more input before the
+  read finishes; SysKnife always answers `Complete`, because approval is a
+  terminal action against the daemon and an MCP-level input round would reach
+  the operator with no approval receipt behind it. A new stdio test drives a
+  real `resources/read` and asserts the result's exact key set.
+
+- **Scorecard no longer uploads its SARIF to code scanning.**
+  ([#326](https://github.com/lacs-project/sysknife/pull/326),
+  [#305](https://github.com/lacs-project/sysknife/issues/305))
+  Every Scorecard heuristic was becoming a code-scanning alert, five of them
+  with no file attached, and four high-severity CodeQL findings sat unread for
+  36 days behind that pile. `publish_results: true` stays, so the badge and the
+  public Scorecard API are unchanged, and the job gives up
+  `security-events: write`.
 
 ### Fixed
 
