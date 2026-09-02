@@ -226,7 +226,7 @@ else
   # This subset is curated, not derivable: it is the atomic-family stories that
   # need no live rpm-ostree host, which no header tag records.
   STORIES=(1 2 3 4 5 6 7 11 12 13 14 15 16 17 \
-           21 22 25 26 28 29 32 38 41 46 47 48 49)
+           21 22 25 26 29 32 38 41 46 47 48 49)
 fi
 
 # ---------------------------------------------------------------------------
@@ -311,12 +311,19 @@ run_story() {
       MESSAGES[$n]="${last_line#SKIP}"
       DURATIONS[$n]="0.0"
       echo "SKIP"
-    else
+    elif [[ "$last_line" == PASS* ]]; then
       RESULTS[$n]="PASS"
       local end_time
       end_time=$(date +%s.%N)
       DURATIONS[$n]=$(echo "$end_time - $start_time" | bc 2>/dev/null || echo "?")
       echo "PASS (${DURATIONS[$n]}s)"
+    else
+      RESULTS[$n]="FAIL"
+      MESSAGES[$n]="exited 0 without a PASS marker"
+      local end_time
+      end_time=$(date +%s.%N)
+      DURATIONS[$n]=$(echo "$end_time - $start_time" | bc 2>/dev/null || echo "?")
+      echo "FAIL (${DURATIONS[$n]}s)"
     fi
   else
     local exit_code=$?
@@ -587,7 +594,8 @@ elif [[ -n "$STORY_SET" ]]; then
   echo ""
 fi
 
-if [[ $fail_count -gt 0 || $cassette_failed -gt 0 ]]; then
+if [[ $fail_count -gt 0 || $skip_count -gt 0 || $ratelimit_count -gt 0 ||
+  $pass_count -eq 0 || $cassette_failed -gt 0 ]]; then
   exit 1
 fi
 exit 0
